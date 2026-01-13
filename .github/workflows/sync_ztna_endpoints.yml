@@ -1,4 +1,3 @@
-
 name: Sync Jamf ZTNA Endpoints (Python)
 
 on:
@@ -27,7 +26,6 @@ jobs:
 
       - name: Parse and write files with Python
         id: parse
-        shell: bash
         run: |
           python - <<'PY'
           import json, os, re, sys
@@ -40,80 +38,77 @@ jobs:
 
           # Load JSON
           try:
-            with open("public-ips.json", "r", encoding="utf-8") as f:
-              data = json.load(f)
+              with open("public-ips.json", "r", encoding="utf-8") as f:
+                  data = json.load(f)
           except Exception as e:
-            print(f"Failed to read/parse JSON: {e}", file=sys.stderr)
-            sys.exit(1)
+              print(f"Failed to read/parse JSON: {e}", file=sys.stderr)
+              sys.exit(1)
 
           # Basic schema guard
           if not isinstance(data, dict) or "public_ips" not in data or not isinstance(data["public_ips"], list):
-            print("Unexpected JSON schema: missing 'public_ips' array", file=sys.stderr)
-            sys.exit(2)
+              print("Unexpected JSON schema: missing 'public_ips' array", file=sys.stderr)
+              sys.exit(2)
 
           # Prepare outputs
           all_file = os.path.join(OUTDIR, f"all_gateways_{TODAY}.txt")
-          # Build content in-memory for idempotency
           all_lines = []
 
           wrote = []
           for item in data["public_ips"]:
-            if not isinstance(item, dict):
-              continue
-            if item.get("service") != "jamf_ztna_endpoint":
-              continue
+              if not isinstance(item, dict):
+                  continue
+              if item.get("service") != "jamf_ztna_endpoint":
+                  continue
 
-            region = item.get("region", "unknown")
-            ip_prefixes = item.get("ip_prefixes") or []
-            if not isinstance(ip_prefixes, list):
-              ip_prefixes = []
+              region = item.get("region", "unknown")
+              ip_prefixes = item.get("ip_prefixes") or []
+              if not isinstance(ip_prefixes, list):
+                  ip_prefixes = []
 
-            safe_region = re.sub(r"[\\/\\s]+", "__", region.strip() or "unknown")
-            outfile = os.path.join(OUTDIR, f"{safe_region}_{TODAY}.txt")
+              safe_region = re.sub(r"[\\/\\s]+", "__", region.strip() or "unknown")
+              outfile = os.path.join(OUTDIR, f"{safe_region}_{TODAY}.txt")
 
-            # De-dup and sort for stability
-            prefixes = sorted(set(str(p).strip() for p in ip_prefixes if str(p).strip()))
+              # De-dup and sort for stability
+              prefixes = sorted(set(str(p).strip() for p in ip_prefixes if str(p).strip()))
 
-            # Write region file only if changed
-            new_content = "".join(f"{p}\n" for p in prefixes)
-            old_content = ""
-            if os.path.exists(outfile):
-              with open(outfile, "r", encoding="utf-8") as rf:
-                old_content = rf.read()
-            if new_content != old_content:
-              with open(outfile, "w", encoding="utf-8") as rf:
-                rf.write(new_content)
-              wrote.append(outfile)
+              # Write region file only if changed
+              new_content = "".join(f"{p}\n" for p in prefixes)
+              old_content = ""
+              if os.path.exists(outfile):
+                  with open(outfile, "r", encoding="utf-8") as rf:
+                      old_content = rf.read()
+              if new_content != old_content:
+                  with open(outfile, "w", encoding="utf-8") as rf:
+                      rf.write(new_content)
+                  wrote.append(outfile)
 
-            # Accumulate for all_gateways
-            all_lines.extend(prefixes)
+              # Accumulate for all_gateways
+              all_lines.extend(prefixes)
 
           # Write the all_gateways file idempotently
           all_lines = sorted(set(all_lines))
           new_all = "".join(f"{p}\n" for p in all_lines)
           old_all = ""
           if os.path.exists(all_file):
-            with open(all_file, "r", encoding="utf-8") as af:
-              old_all = af.read()
+              with open(all_file, "r", encoding="utf-8") as af:
+                  old_all = af.read()
           if new_all != old_all:
-            with open(all_file, "w", encoding="utf-8") as af:
-              af.write(new_all)
-            wrote.append(all_file)
+              with open(all_file, "w", encoding="utf-8") as af:
+                  af.write(new_all)
+              wrote.append(all_file)
 
           print(f"Updated files: {len(wrote)}")
           for path in wrote:
-            print(f"WROTE: {path}")
+              print(f"WROTE: {path}")
 
-          # Communicate to next step whether anything changed
           changed = "true" if wrote else "false"
 
-          # Write the value to a small file; the shell wrapper appends to $GITHUB_OUTPUT
-          with open("parse_changed.txt", "w", encoding="utf-8") as out:
-            out.write(changed)
+          # New-style GitHub Actions step output
+          github_output = os.environ.get("GITHUB_OUTPUT")
+          if github_output:
+              with open(github_output, "a", encoding="utf-8") as go:
+                  go.write(f"changed={changed}\n")
           PY
-
-          # Use the supported outputs mechanism
-          echo "changed=$(cat parse_changed.txt)" >> "$GITHUB_OUTPUT"
 
       - name: Commit changes if any
         if: steps.parse.outputs.changed == 'true'
