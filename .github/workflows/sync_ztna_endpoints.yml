@@ -67,9 +67,7 @@ jobs:
               if not isinstance(ip_prefixes, list):
                   ip_prefixes = []
 
-            safe_region = re.sub(r"[\/ \s]+", "__", region.strip() or "unknown")
-                outfile = os.path.join(OUTDIR, f"{safe_region}_{TODAY}.txt")
-
+        outfile = os.path.join(OUTDIR, f"{safe_region}_{TODAY}.txt")
               # De-dup and sort for stability
               prefixes = sorted(set(str(p).strip() for p in ip_prefixes if str(p).strip()))
 
