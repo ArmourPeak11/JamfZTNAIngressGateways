@@ -66,6 +66,7 @@ jobs:
               ip_prefixes = item.get("ip_prefixes") or []
               if not isinstance(ip_prefixes, list):
                   ip_prefixes = []
+                          safe_region = re.sub(r"[\\/  \\s]+", "_", region.strip() or "unknown")
 
         outfile = os.path.join(OUTDIR, f"{safe_region}_{TODAY}.txt")
               # De-dup and sort for stability
