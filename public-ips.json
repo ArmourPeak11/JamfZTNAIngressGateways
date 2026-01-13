@@ -1,0 +1,475 @@
+{
+  "publish_date": "2026-01-08-17-35-53",
+  "public_ips": [
+    {
+      "service": "jamf_pro_cloud",
+      "provider": "aws",
+      "traffic": "outbound",
+      "region": "us-all-regions",
+      "ip_prefixes": [
+        "3.23.255.131/32",
+        "3.143.15.105/32",
+        "3.130.63.29/32",
+        "52.89.86.60/32",
+        "44.234.217.245/32",
+        "52.34.212.159/32",
+        "18.190.65.175/32",
+        "18.119.47.164/32",
+        "18.224.13.181/32",
+        "54.212.14.92/32",
+        "100.21.184.193/32",
+        "35.85.106.172/32",
+        "52.206.29.216/32",
+        "3.217.130.68/32",
+        "54.157.190.170/32",
+        "18.224.191.224/32",
+        "3.130.178.215/32",
+        "3.133.177.81/32",
+        "44.226.175.32/32",
+        "52.10.63.255/32",
+        "35.162.10.117/32",
+        "140.150.102.9/32",
+        "140.150.102.10/32",
+        "140.150.102.11/32",
+        "140.150.102.15/32",
+        "140.150.102.16/32",
+        "140.150.102.17/32",
+        "140.150.103.3/32",
+        "140.150.103.4/32",
+        "140.150.103.5/32",
+        "140.150.103.6/32",
+        "140.150.103.7/32",
+        "140.150.103.8/32"
+      ]
+    },
+    {
+      "service": "jamf_pro_cloud",
+      "provider": "aws",
+      "traffic": "outbound",
+      "region": "us-stateramp",
+      "ip_prefixes": [
+        "44.196.238.212/32",
+        "3.226.56.239/32",
+        "44.207.91.216/32"
+      ]
+    },
+    {
+      "service": "jamf_pro_cloud",
+      "provider": "aws",
+      "traffic": "outbound",
+      "region": "us-gov",
+      "ip_prefixes": [
+        "52.61.75.6/32",
+        "96.127.88.64/32"
+      ]
+    },
+    {
+      "service": "jamf_pro_cloud",
+      "provider": "aws",
+      "traffic": "outbound",
+      "region": "eu-central-1",
+      "ip_prefixes": [
+        "18.196.78.65/32",
+        "52.28.3.192/32",
+        "3.72.173.10/32",
+        "3.121.73.91/32",
+        "3.68.136.32/32",
+        "3.121.120.185/32",
+        "18.198.86.9/32",
+        "18.196.51.139/32",
+        "3.74.240.229/32",
+        "140.150.98.9/32",
+        "140.150.98.10/32",
+        "140.150.98.11/32",
+        "140.150.98.15/32",
+        "140.150.98.16/32",
+        "140.150.98.17/32"
+      ]
+    },
+    {
+      "service": "jamf_pro_cloud",
+      "provider": "aws",
+      "traffic": "outbound",
+      "region": "eu-west-2",
+      "ip_prefixes": [
+        "3.11.44.253/32",
+        "3.10.137.75/32",
+        "3.9.2.225/32",
+        "3.11.115.18/32",
+        "35.178.147.36/32",
+        "18.134.197.23/32",
+        "35.176.159.21/32",
+        "18.132.124.105/32",
+        "13.40.247.171/32",
+        "140.150.100.3/32",
+        "140.150.100.4/32",
+        "140.150.100.5/32",
+        "140.150.100.6/32",
+        "140.150.100.7/32",
+        "140.150.100.8/32"
+      ]
+    },
+    {
+      "service": "jamf_pro_cloud",
+      "provider": "aws",
+      "traffic": "outbound",
+      "region": "ap-southeast-2",
+      "ip_prefixes": [
+        "13.54.246.87/32",
+        "3.104.26.210/32",
+        "3.104.192.79/32",
+        "54.66.121.34/32",
+        "52.65.169.5/32",
+        "54.153.165.227/32",
+        "52.62.87.239/32",
+        "54.79.235.176/32",
+        "52.64.50.111/32",
+        "140.150.97.3/32",
+        "140.150.97.4/32",
+        "140.150.97.5/32",
+        "140.150.97.6/32",
+        "140.150.97.7/32",
+        "140.150.97.8/32"
+      ]
+    },
+    {
+      "service": "jamf_pro_cloud",
+      "provider": "aws",
+      "traffic": "outbound",
+      "region": "ap-northeast-1",
+      "ip_prefixes": [
+        "52.194.126.113/32",
+        "54.238.65.71/32",
+        "54.65.212.193/32",
+        "3.113.55.36/32",
+        "35.76.238.164/32",
+        "54.248.53.228/32",
+        "52.192.248.207/32",
+        "43.207.12.214/32",
+        "18.182.140.211/32",
+        "140.150.96.3/32",
+        "140.150.96.4/32",
+        "140.150.96.5/32",
+        "140.150.96.6/32",
+        "140.150.96.7/32",
+        "140.150.96.8/32"
+      ]
+    },
+    {
+      "service": "jamf_pro_cloud",
+      "provider": "azure",
+      "traffic": "outbound",
+      "region": "centralus",
+      "ip_prefixes": [
+        "52.165.253.89/32",
+        "52.165.253.91/32",
+        "52.165.253.84/32",
+        "52.165.253.80/32"
+      ]
+    },
+    {
+      "service": "jamf_pro_cloud",
+      "provider": "azure",
+      "traffic": "outbound",
+      "region": "germanywestcentral",
+      "ip_prefixes": [
+        "20.79.34.226/32",
+        "20.79.34.231/32",
+        "20.79.34.228/32",
+        "20.79.34.238/32"
+      ]
+    },
+    {
+      "service": "jamf_cloud_services",
+      "provider": "aws",
+      "traffic": "outbound",
+      "region": "us-all-regions",
+      "ip_prefixes": [
+        "3.226.32.14/32",
+        "52.71.240.248/32",
+        "3.223.7.151/32",
+        "140.150.102.9/32",
+        "140.150.102.10/32",
+        "140.150.102.11/32",
+        "140.150.102.15/32",
+        "140.150.102.16/32",
+        "140.150.102.17/32"
+      ]
+    },
+    {
+      "service": "jamf_cloud_services",
+      "provider": "aws",
+      "traffic": "outbound",
+      "region": "ap-all-regions",
+      "ip_prefixes": [
+        "35.75.175.177/32",
+        "52.197.13.79/32",
+        "140.150.96.3/32",
+        "140.150.96.4/32",
+        "140.150.96.5/32",
+        "140.150.96.6/32",
+        "140.150.96.7/32",
+        "140.150.96.8/32"
+      ]
+    },
+    {
+      "service": "jamf_cloud_services",
+      "provider": "aws",
+      "traffic": "outbound",
+      "region": "eu-all-regions",
+      "ip_prefixes": [
+        "3.125.234.3/32",
+        "3.64.188.44/32",
+        "3.121.152.230/32",
+        "140.150.98.9/32",
+        "140.150.98.10/32",
+        "140.150.98.11/32",
+        "140.150.98.15/32",
+        "140.150.98.16/32",
+        "140.150.98.17/32"
+      ]
+    },
+    {
+      "service": "jamf_cloud_distribution_service",
+      "traffic": "inbound",
+      "provider": "aws",
+      "region": "us-all-regions",
+      "fqdns": [
+        "jcds.use1.inf.jamf.one",
+        "d3vkdkwvc3vitl.cloudfront.net",
+        "us-east-1-prod-jcds2-file-objects.s3.amazonaws.com",
+        "us-east-1-prod-jcds2-file-objects.s3.us-east-1.amazonaws.com"
+      ]
+    },
+    {
+      "service": "jamf_cloud_distribution_service",
+      "traffic": "inbound",
+      "provider": "aws",
+      "region": "eu-central-1",
+      "fqdns": [
+        "jcds.euc1.inf.jamf.one",
+        "d1590uekmzbnci.cloudfront.net",
+        "eu-central-1-prod-jcds2-file-objects.s3.amazonaws.com",
+        "eu-central-1-prod-jcds2-file-objects.s3.eu-central-1.amazonaws.com"
+      ]
+    },
+    {
+      "service": "jamf_cloud_distribution_service",
+      "traffic": "inbound",
+      "provider": "aws",
+      "region": "eu-west-2",
+      "fqdns": [
+        "jcds.euw2.inf.jamf.one",
+        "d2zt4v5bo59xg8.cloudfront.net",
+        "eu-west-2-prod-jcds2-file-objects.s3.amazonaws.com",
+        "eu-west-2-prod-jcds2-file-objects.s3.eu-west-2.amazonaws.com"
+      ]
+    },
+    {
+      "service": "jamf_cloud_distribution_service",
+      "traffic": "inbound",
+      "provider": "aws",
+      "region": "ap-southeast-2",
+      "fqdns": [
+        "jcds.apse2.inf.jamf.one",
+        "d3zqyxnkgrm1p.cloudfront.net",
+        "ap-southeast-2-prod-jcds2-file-objects.s3.amazonaws.com",
+        "ap-southeast-2-prod-jcds2-file-objects.s3.ap-southeast-2.amazonaws.com"
+      ]
+    },
+    {
+      "service": "jamf_cloud_distribution_service",
+      "traffic": "inbound",
+      "provider": "aws",
+      "region": "ap-northeast-1",
+      "fqdns": [
+        "jcds.apne1.inf.jamf.one",
+        "d1keoc0lihzxgs.cloudfront.net",
+        "ap-northeast-1-prod-jcds2-file-objects.s3.amazonaws.com",
+        "ap-northeast-1-prod-jcds2-file-objects.s3.ap-northeast-1.amazonaws.com"
+      ]
+    },
+    {
+      "service": "jamf_ztna_endpoint",
+      "provider": "aws",
+      "traffic": "inbound",
+      "region": "us-west-2",
+      "ip_prefixes": [
+        "44.232.168.72/32",
+        "44.232.62.192/32",
+        "52.40.74.185/32",
+        "44.224.190.169/32",
+        "44.247.64.85/32",
+        "54.245.2.96/32"
+      ]
+    },
+    {
+      "service": "jamf_ztna_endpoint",
+      "provider": "aws",
+      "traffic": "inbound",
+      "region": "us-east-1",
+      "ip_prefixes": [
+        "54.81.37.163/32",
+        "52.71.99.101/32",
+        "34.227.37.91/32",
+        "3.212.14.31/32",
+        "3.232.10.115/32",
+        "34.230.169.104/32"
+      ]
+    },
+    {
+      "service": "jamf_ztna_endpoint",
+      "provider": "aws",
+      "traffic": "inbound",
+      "region": "ca-central-1",
+      "ip_prefixes": [
+        "52.60.123.39/32",
+        "99.79.107.210/32",
+        "3.98.239.24/32",
+        "35.182.103.249/32",
+        "35.182.39.54/32",
+        "35.183.80.206/32"
+      ]
+    },
+    {
+      "service": "jamf_ztna_endpoint",
+      "provider": "aws",
+      "traffic": "inbound",
+      "region": "eu-west-2",
+      "ip_prefixes": [
+        "3.9.34.90/32",
+        "3.8.243.87/32",
+        "35.179.83.61/32",
+        "13.43.184.138/32",
+        "18.132.85.30/32",
+        "18.135.132.223/32"
+      ]
+    },
+    {
+      "service": "jamf_ztna_endpoint",
+      "provider": "aws",
+      "traffic": "inbound",
+      "region": "eu-central-1",
+      "ip_prefixes": [
+        "52.59.54.116/32",
+        "3.71.217.144/32",
+        "35.156.182.253/32",
+        "3.125.152.207/32",
+        "3.125.246.128/32",
+        "63.178.178.7/32"
+      ]
+    },
+    {
+      "service": "jamf_ztna_endpoint",
+      "provider": "aws",
+      "traffic": "inbound",
+      "region": "eu-west-1",
+      "ip_prefixes": [
+        "34.253.55.163/32",
+        "52.214.227.148/32",
+        "34.250.21.199/32",
+        "52.17.42.35/32",
+        "54.171.228.133/32",
+        "99.80.126.0/32"
+      ]
+    },
+    {
+      "service": "jamf_ztna_endpoint",
+      "provider": "aws",
+      "traffic": "inbound",
+      "region": "ap-southeast-2",
+      "ip_prefixes": [
+        "13.237.185.171/32",
+        "3.106.49.51/32",
+        "3.104.14.94/32",
+        "13.236.218.239/32",
+        "13.237.72.86/32",
+        "52.62.199.75/32"
+      ]
+    },
+    {
+      "service": "jamf_ztna_endpoint",
+      "provider": "aws",
+      "traffic": "inbound",
+      "region": "ap-southeast-1",
+      "ip_prefixes": [
+        "18.142.31.113/32",
+        "18.140.106.152/32",
+        "54.151.180.141/32",
+        "13.215.27.232/32",
+        "52.76.178.248/32",
+        "52.77.60.116/32"
+      ]
+    },
+    {
+      "service": "jamf_ztna_endpoint",
+      "provider": "aws",
+      "traffic": "inbound",
+      "region": "ap-east-1",
+      "ip_prefixes": [
+        "18.167.1.241/32",
+        "16.162.196.60/32",
+        "18.163.43.36/32",
+        "18.162.105.134/32",
+        "18.162.63.5/32",
+        "18.166.251.248/32"
+      ]
+    },
+    {
+      "service": "jamf_ztna_endpoint",
+      "provider": "aws",
+      "traffic": "inbound",
+      "region": "ap-northeast-1",
+      "ip_prefixes": [
+        "54.199.229.167/32",
+        "35.75.246.199/32",
+        "52.68.210.16/32",
+        "35.74.94.204/32",
+        "54.64.232.107/32",
+        "57.181.24.175/32"
+      ]
+    },
+    {
+      "service": "jamf_ztna_endpoint",
+      "provider": "aws",
+      "traffic": "inbound",
+      "region": "ap-south-1",
+      "ip_prefixes": [
+        "3.109.103.127/32",
+        "3.7.34.33/32",
+        "13.235.249.165/32",
+        "15.206.150.190/32",
+        "3.109.188.145/32",
+        "43.205.223.205/32"
+      ]
+    },
+    {
+      "service": "jamf_ztna_endpoint",
+      "provider": "aws",
+      "traffic": "inbound",
+      "region": "sa-east-1",
+      "ip_prefixes": [
+        "54.232.135.245/32",
+        "18.229.66.35/32",
+        "54.94.89.64/32",
+        "18.228.87.18/32",
+        "54.233.180.253/32",
+        "56.125.57.171/32"
+      ]
+    },
+    {
+      "service": "jamf_ztna_endpoint",
+      "provider": "aws",
+      "traffic": "inbound",
+      "region": "af-south-1",
+      "ip_prefixes": [
+        "13.245.103.224/32",
+        "13.246.100.111/32",
+        "13.246.100.252/32",
+        "13.244.44.41/32",
+        "13.247.165.163/32",
+        "13.247.228.249/32"
+      ]
+    }
+  ]
+}
