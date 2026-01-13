@@ -1,0 +1,137 @@
+
+name: Sync Jamf ZTNA Endpoints (Python)
+
+on:
+  schedule:
+    - cron: "0 * * * *"   # every hour; adjust as needed
+  workflow_dispatch:       # allow manual trigger
+
+jobs:
+  build-and-commit:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Fetch upstream JSON
+        run: |
+          curl -fsSL \
+            "https://engineering.jamf.com/tc-docs-public-ip-lists/public-ips.json" \
+            -o public-ips.json
+
+      - name: Parse and write files with Python
+        id: parse
+        run: |
+          python - <<'PY'
+          import json, os, re, sys, hashlib
+          from datetime import date
+
+          TODAY = date.today().isoformat()
+          BASE = "endpoints"
+          OUTDIR = os.path.join(BASE, TODAY)
+          os.makedirs(OUTDIR, exist_ok=True)
+
+          # Load JSON
+          try:
+            with open("public-ips.json", "r", encoding="utf-8") as f:
+              data = json.load(f)
+          except Exception as e:
+            print(f"Failed to read/parse JSON: {e}", file=sys.stderr)
+            sys.exit(1)
+
+          # Basic schema guard
+          if not isinstance(data, dict) or "public_ips" not in data or not isinstance(data["public_ips"], list):
+            print("Unexpected JSON schema: missing 'public_ips' array", file=sys.stderr)
+            sys.exit(2)
+
+          # Prepare outputs
+          all_file = os.path.join(OUTDIR, f"all_gateways_{TODAY}.txt")
+          # We'll build content in-memory first to enable idempotent writes
+          all_lines = []
+
+          wrote = []
+          for item in data["public_ips"]:
+            if not isinstance(item, dict):
+              continue
+            if item.get("service") != "jamf_ztna_endpoint":
+              continue
+
+            region = item.get("region", "unknown")
+            ip_prefixes = item.get("ip_prefixes") or []
+            if not isinstance(ip_prefixes, list):
+              ip_prefixes = []
+
+            safe_region = re.sub(r"[\\/\\s]+", "__", region.strip() or "unknown")
+            outfile = os.path.join(OUTDIR, f"{safe_region}_{TODAY}.txt")
+
+            # De-dup and sort for stability
+            prefixes = sorted(set(str(p).strip() for p in ip_prefixes if str(p).strip()))
+
+            # Write region file only if changed
+            new_content = "".join(f"{p}\n" for p in prefixes)
+            old_content = ""
+            if os.path.exists(outfile):
+              with open(outfile, "r", encoding="utf-8") as rf:
+                old_content = rf.read()
+            if new_content != old_content:
+              with open(outfile, "w", encoding="utf-8") as rf:
+                rf.write(new_content)
+              wrote.append(outfile)
+
+            # Accumulate for all_gateways
+            all_lines.extend(prefixes)
+
+          # Write the all_gateways file idempotently
+          all_lines = sorted(set(all_lines))
+          new_all = "".join(f"{p}\n" for p in all_lines)
+          old_all = ""
+          if os.path.exists(all_file):
+            with open(all_file, "r", encoding="utf-8") as af:
+              old_all = af.read()
+          if new_all != old_all:
+            with open(all_file, "w", encoding="utf-8") as af:
+              af.write(new_all)
+            wrote.append(all_file)
+
+          # Optionally mirror "latest" snapshot (uncomment to enable)
+          # latest_dir = os.path.join(BASE, "latest")
+          # if os.path.isdir(latest_dir):
+          #   for root, dirs, files in os.walk(latest_dir, topdown=False):
+          #     for name in files:
+          #       os.remove(os.path.join(root, name))
+          #     for name in dirs:
+          #       os.rmdir(os.path.join(root, name))
+          # os.makedirs(latest_dir, exist_ok=True)
+          # for name in os.listdir(OUTDIR):
+          #   src = os.path.join(OUTDIR, name)
+          #   dst = os.path.join(latest_dir, name)
+          #   with open(src, "rb") as s, open(dst, "wb") as d:
+          #     d.write(s.read())
+
+          print(f"Updated files: {len(wrote)}")
+          for path in wrote:
+            print(f"WROTE: {path}")
+          # Communicate to later step whether anything changed
+          changed = "true" if wrote else "false"
+          print(f"::set-output name=changed::{changed}")
+          PY
+
+      - name: Commit changes if any
+        if: steps.parse.outputs.changed == 'true'
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add endpoints/ public-ips.json
+          git commit -m "Update ZTNA endpoints for $(date +%F)"
+          git push
+
+      - name: No changes detected
+        if: steps.parse.outputs.changed != 'true'
+        run: echo "No changes to commit."
+``
