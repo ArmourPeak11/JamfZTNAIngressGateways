@@ -27,9 +27,10 @@ jobs:
 
       - name: Parse and write files with Python
         id: parse
+        shell: bash
         run: |
           python - <<'PY'
-          import json, os, re, sys, hashlib
+          import json, os, re, sys
           from datetime import date
 
           TODAY = date.today().isoformat()
@@ -52,7 +53,7 @@ jobs:
 
           # Prepare outputs
           all_file = os.path.join(OUTDIR, f"all_gateways_{TODAY}.txt")
-          # We'll build content in-memory first to enable idempotent writes
+          # Build content in-memory for idempotency
           all_lines = []
 
           wrote = []
@@ -99,28 +100,20 @@ jobs:
               af.write(new_all)
             wrote.append(all_file)
 
-          # Optionally mirror "latest" snapshot (uncomment to enable)
-          # latest_dir = os.path.join(BASE, "latest")
-          # if os.path.isdir(latest_dir):
-          #   for root, dirs, files in os.walk(latest_dir, topdown=False):
-          #     for name in files:
-          #       os.remove(os.path.join(root, name))
-          #     for name in dirs:
-          #       os.rmdir(os.path.join(root, name))
-          # os.makedirs(latest_dir, exist_ok=True)
-          # for name in os.listdir(OUTDIR):
-          #   src = os.path.join(OUTDIR, name)
-          #   dst = os.path.join(latest_dir, name)
-          #   with open(src, "rb") as s, open(dst, "wb") as d:
-          #     d.write(s.read())
-
           print(f"Updated files: {len(wrote)}")
           for path in wrote:
             print(f"WROTE: {path}")
-          # Communicate to later step whether anything changed
+
+          # Communicate to next step whether anything changed
           changed = "true" if wrote else "false"
-          print(f"::set-output name=changed::{changed}")
+
+          # Write the value to a small file; the shell wrapper appends to $GITHUB_OUTPUT
+          with open("parse_changed.txt", "w", encoding="utf-8") as out:
+            out.write(changed)
           PY
+
+          # Use the supported outputs mechanism
+          echo "changed=$(cat parse_changed.txt)" >> "$GITHUB_OUTPUT"
 
       - name: Commit changes if any
         if: steps.parse.outputs.changed == 'true'
@@ -134,4 +127,3 @@ jobs:
       - name: No changes detected
         if: steps.parse.outputs.changed != 'true'
         run: echo "No changes to commit."
-``
