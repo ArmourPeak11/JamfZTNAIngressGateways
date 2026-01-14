@@ -35,7 +35,9 @@ jobs:
 
           TODAY = date.today().isoformat()
           BASE = "endpoints"
-          OUTDIR = os.path.join(BASE, TODAY)
+          # Let's not accumulate date folders, we don't need that.
+          #OUTDIR = os.path.join(BASE, TODAY)
+          OUTDIR = "Gateways"
           os.makedirs(OUTDIR, exist_ok=True)
 
           # Load JSON
@@ -52,7 +54,9 @@ jobs:
               sys.exit(2)
 
           # Prepare outputs
-          all_file = os.path.join(OUTDIR, f"all_gateways_{TODAY}.txt")
+          # We don't need the date since we're in Github, we'll just commit the latest
+          #all_file = os.path.join(OUTDIR, f"all_gateways_{TODAY}.txt")
+          all_file = os.path.join(OUTDIR, f"all_gateways.txt")
           all_lines = []
 
           wrote = []
@@ -69,7 +73,9 @@ jobs:
 
               #safe_region = re.sub(r"[\\/\\s]+", "__", region.strip() or "unknown")
               safe_region = re.sub(r"[/\s]+", "__", region.strip() or "unknown")
-              outfile = os.path.join(OUTDIR, f"{safe_region}_{TODAY}.txt")
+              # We don't need the date since we're in Github, we'll just commit the latest
+              #outfile = os.path.join(OUTDIR, f"{safe_region}_{TODAY}.txt")
+              outfile = os.path.join(OUTDIR, f"{safe_region}.txt")
 
               # De-dup and sort for stability
               prefixes = sorted(set(str(p).strip() for p in ip_prefixes if str(p).strip()))
