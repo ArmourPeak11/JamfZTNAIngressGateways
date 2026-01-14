@@ -124,7 +124,8 @@ jobs:
         run: |
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
-          git add endpoints/ public-ips.json
+          #git add endpoints/ public-ips.json
+          git add Gateways/ public-ips.json
           git commit -m "Update ZTNA endpoints for $(date +%F)"
           git push
 
